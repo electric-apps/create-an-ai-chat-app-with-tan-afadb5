@@ -1,14 +1,16 @@
-// Zod schemas derived from Drizzle tables.
-// Never hand-write Zod schemas — always use createSelectSchema / createInsertSchema.
-//
-// Example:
-// import { createSelectSchema, createInsertSchema } from "drizzle-zod"
-// import { todos } from "./schema"
-//
-// export const todoSelectSchema = createSelectSchema(todos)
-// export const todoInsertSchema = createInsertSchema(todos)
-//
-// export type Todo = typeof todoSelectSchema._type
-// export type NewTodo = typeof todoInsertSchema._type
+import { createSelectSchema, createInsertSchema } from "drizzle-zod"
+import { z } from "zod/v4"
+import { conversations } from "./schema"
 
-export {}
+export const conversationSelectSchema = createSelectSchema(conversations, {
+	created_at: z.coerce.date().default(() => new Date()),
+	updated_at: z.coerce.date().default(() => new Date()),
+})
+
+export const conversationInsertSchema = createInsertSchema(conversations, {
+	created_at: z.coerce.date().default(() => new Date()),
+	updated_at: z.coerce.date().default(() => new Date()),
+})
+
+export type Conversation = typeof conversationSelectSchema._type
+export type NewConversation = typeof conversationInsertSchema._type

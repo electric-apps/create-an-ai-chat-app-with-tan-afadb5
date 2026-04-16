@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router"
 import { ClientOnly } from "@/components/ClientOnly"
 import { AppLayout } from "@/components/app-layout"
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/chat/$conversationId")({
 	ssr: false,
-	component: HomePage,
+	component: ChatPage,
 })
 
-function HomePage() {
+function ChatPage() {
 	return <ClientOnly>{() => <AppLayout />}</ClientOnly>
 }
